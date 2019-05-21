@@ -13,7 +13,7 @@ class Buku extends CI_Controller {
         $data['judul'] = 'Data Buku';
         $data['buku'] = $this->Buku_model->tampilSemuaBrg();
         $this->load->view('templates/header', $data);
-        $this->load->view('barang/index');
+        $this->load->view('admin/buku');
         $this->load->view('templates/footer');
     }
 }
