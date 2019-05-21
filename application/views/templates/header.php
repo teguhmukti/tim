@@ -20,8 +20,15 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?= base_url(); ?>buku">Barang</a>
+            <a class="nav-link" href="<?= base_url(); ?>buku">Buku</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url(); ?>anggota">Anggota</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url(); ?>transaksi">Transaksi</a>
+        </li>
+         
         </ul>
     </div>
     </div>
