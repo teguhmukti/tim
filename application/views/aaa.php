@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
    
-	<title>.:: Selamat datang di Perpustakaan : <?=$q_instansi->nama?> ::.</title>
+	<title>Selamat datang di Perpustakaan : <?=$q_instansi->nama?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -106,7 +106,7 @@
 		<hr>	
 
      <footer>
-		<div><center>&reg; SIMPUS. Loaded in : 0.1462. Copyright: <?=$q_instansi->nama?> - 2013.</div>
+		<div><center>&reg; SIMPUS. Copyright: <?=$q_instansi->nama?> - 2019.</div>
 	</footer>
 
 

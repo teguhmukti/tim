@@ -10,7 +10,7 @@
 <div class="pull-right">
 <form action="<?=base_URL()?>depan/cari_buku/cari" method="post">
 	<center>
-	<input type="text" name="q" style="width: 400px" placeholder="Masukkan judul ATAU pengarang ATAU  buku" required>
+	<input type="text" name="q" style="width: 400px;height:30px" placeholder="Masukkan judul ATAU pengarang ATAU  buku" required>
 	<input type="submit" value="Cari" class="btn btn-primary" style="margin-top: -10px">
 	</center>
 </form>
