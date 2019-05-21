@@ -7,7 +7,7 @@
 		<div class="span12 wellwhite" style="margin-left: 0px">
 		<legend style="margin-bottom: 10px; font-size: 15px; font-weight: bold">Profil Perpustakaan <?=$q_instansi->nama?></legend>
 		<div class="row-fluid">
-		<?=$data->profil?>		
+		<p>Ini adalah sistem informasi perpustakaan politeknik jember.</p>		
 		
         </div>
 		</div>        

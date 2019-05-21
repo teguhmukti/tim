@@ -3,12 +3,10 @@
 			<li><a href="<?=base_URL()?>">Beranda</a> <span class="divider">/</span></li>
 			<li>Hasil Pencarian </li>
 		</ul>
-		
 		<div class="span12 wellwhite" style="margin-left: 0px">
 		<legend style="margin-bottom: 10px; font-size: 15px; font-weight: bold">Hasil Pencarian</legend>
-		<div class="row-fluid">
-		
-		
+
+<div class="row-fluid">		
 <div class="pull-right">
 <form action="<?=base_URL()?>depan/cari_buku/cari" method="post">
 	<center>
