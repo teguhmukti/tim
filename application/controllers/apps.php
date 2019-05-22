@@ -48,4 +48,102 @@ class Apps extends CI_Controller {
   redirect('apps/login');
   }
 
+  public function anggota() {
+        if(! $this->session->userdata('validated')){
+            redirect('apps/login');
+        }
+        
+        /* pagination */    
+        $this->load->library('pagination');
+        $total_rows     = $this->db->query("SELECT * FROM t_anggota")->num_rows();
+        
+        
+        $config['base_url']     = base_URL().'apps/anggota/p/';
+        $config['total_rows']   = $total_rows;
+        $config['uri_segment']  = 4;
+        $config['per_page']     = 10; 
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close']= '</li>';
+        $config['prev_link']    = '&lt;';
+        $config['prev_tag_open']='<li>';
+        $config['prev_tag_close']='</li>';
+        $config['next_link']    = '&gt;';
+        $config['next_tag_open']='<li>';
+        $config['next_tag_close']='</li>';
+        $config['cur_tag_open']='<li class="active disabled"><a href="#"  style="background: #e3e3e3">';
+        $config['cur_tag_close']='</a></li>';
+        $config['first_tag_open']='<li>';
+        $config['first_tag_close']='</li>';
+        $config['last_tag_open']='<li>';
+        $config['last_tag_close']='</li>';
+        
+        $this->pagination->initialize($config); 
+        
+        
+        $awal   = $this->uri->segment(4); 
+        if (empty($awal) || $awal == 1) { $awal = 0; } { $awal = $awal; }
+        $akhir  = $config['per_page'];
+        
+        $a['pagi']  = $this->pagination->create_links();
+        
+        
+        //ambil variabel URL
+        $mau_ke                 = $this->uri->segment(3);
+        $idu                    = $this->uri->segment(4);
+
+        //ambil variabel Postingan
+        $idp                    = addslashes($this->input->post('idp'));
+        $nama                   = addslashes($this->input->post('nama'));
+        $alamat                 = addslashes($this->input->post('alamat'));
+        $jk                     = addslashes($this->input->post('jk'));
+        $agama                  = addslashes($this->input->post('agama'));
+        $tmp_lahir              = addslashes($this->input->post('tmp_lahir'));
+        
+        $tgl_lahir              = $this->input->post('th')."-".str_pad($this->input->post('bl'), 2, '0', STR_PAD_LEFT)."-".str_pad($this->input->post('tg'), 2, '0', STR_PAD_LEFT);
+        
+        $jenis                  = addslashes($this->input->post('jenis'));
+        $status                 = addslashes($this->input->post('status'));
+        
+        $cari                   = addslashes($this->input->post('q'));
+        //view tampilan website\
+        $a['data']      = $this->db->query("SELECT * FROM t_anggota  LIMIT $awal, $akhir ")->result();
+        $a['page']      = "d_anggota";
+
+        if ($mau_ke == "del") {
+            $this->db->query("DELETE FROM t_anggota WHERE id = '$idu'");
+            
+            $this->session->set_flashdata("k", "<div class=\"alert alert-success\">Data has been deleted </div>");
+            redirect('apps/anggota');
+        } else if ($mau_ke == "cari") {
+            $a['data']      = $this->db->query("SELECT * FROM t_anggota WHERE nama LIKE '%$cari%' OR alamat LIKE '%$cari%' ORDER BY id DESC")->result();
+            $a['page']  = "d_anggota";
+        } else if ($mau_ke == "add") {
+            $a['page']  = "f_anggota";
+        } else if ($mau_ke == "edt") {
+            $a['datpil']        = $this->db->query("SELECT * FROM t_anggota WHERE id = '$idu'")->row(); 
+            $a['page']          = "f_anggota";
+        }else if ($mau_ke == "act_add") {
+            $this->db->query("INSERT INTO t_anggota VALUES ('', '$nama', '$alamat', '$jk', '$agama', '$tmp_lahir', '$tgl_lahir', '',  NOW(), '$jenis', '1')");
+            
+            $this->session->set_flashdata("k", "<div class=\"alert alert-success\">Data has been added</div>");
+            redirect('apps/anggota');
+        } else if ($mau_ke == "act_edt") {
+            $this->db->query("UPDATE t_anggota SET nama = '$nama', alamat = '$alamat', jk = '$jk', agama = '$agama', tmp_lahir = '$tmp_lahir', tgl_lahir = '$tgl_lahir', jenis = '$jenis', stat = '$status' WHERE id = '$idp'");
+
+            $this->session->set_flashdata("k", "<div class=\"alert alert-success\">Data has been updated</div>");           
+            redirect('apps/anggota');
+        } else if ($mau_ke == "list_pinjam") {
+            $a['id_anggota']= $idu;
+            $a['data']      = $this->db->query("SELECT t_trans.*, t_buku.judul 
+                                                FROM t_trans 
+                                                LEFT JOIN t_buku ON t_trans.id_buku = t_buku.id
+                                                WHERE t_trans.id_anggota = '$idu' ORDER BY t_trans.id DESC")->result();
+            $a['page']      = "d_lis_pinjam";
+        } else {
+            $a['page']  = "d_anggota";
+        }
+        
+        $this->load->view('admin/aaa', $a);
+  }
+
 }
