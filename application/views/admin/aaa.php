@@ -63,8 +63,8 @@
     <div class="navbar navbar-inverse navbar-fixed-top" style="background: #CBD9BC">
       	<div style="margin-left: 20px">
 			<img style="width: 70px; height: 70px; display: inline; float: left; margin-right: 20px" src="<?=base_URL()?>aset/<?=$q_instansi->logo?>">
-			<h3>Perpustakaan <?=$q_instansi->nama?></h3>
-			<h6 style="font-family: Georgia; margin-top: -10px">Alamat : <?=$q_instansi->alamat?></h6>
+			<h3>Perpustakaan Politeknik</h3>
+			<h6 style="font-family: Georgia; margin-top: -10px">Alamat : Jember</h6>
 		</div>
 
 		
@@ -140,7 +140,7 @@
       <hr>
 
       <footer>
-        <p>&copy; Sistem Informasi Perpustakaan <?=$q_instansi->nama?> @ <?=date('Y')?>. This site loaded in {elapsed_time} seconds</p>
+        <p>&copy; Sistem Informasi Perpustakaan Politeknik. This site loaded in {elapsed_time} seconds</p>
       </footer>
 
     </div><!--/.fluid-container-->
