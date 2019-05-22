@@ -41,6 +41,11 @@ class Apps extends CI_Controller {
 			$this->session->set_flashdata("k", "<div class=\"alert alert-error\">username or password is not valid</div>");
 			redirect('apps/login');
 		}
-	}
+  }
+  
+  public function logout(){
+    $this->session->sess_destroy();
+  redirect('apps/login');
+  }
 
 }
