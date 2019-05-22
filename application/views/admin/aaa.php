@@ -79,7 +79,7 @@
           <div class="nav-collapse collapse">
 
             <ul class="nav">
-              <?php 
+    <?php 
 			$m_view	= array("Home", "Transaksi", "Data Anggota", "Data Buku", "Tools");
 			$m_val	= array("", "trans", "anggota", "buku", "tool");
 			
@@ -90,48 +90,24 @@
 					echo "<li><a href='".base_URL()."apps/".$m_val[$a]."'>".$m_view[$a]."</a></li>";
 				}
 			}
-			?>
-			<li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Laporan &nbsp;&nbsp;<b class="caret"></b></a>		
-				<ul class="dropdown-menu">
-					<li><a href="<?=base_URL()?>apps/l_pengunjung">Pengunjung</a></li>
-					<li><a href="<?=base_URL()?>apps/l_peminjam">Peminjaman</a></li>
-					<li><a href="<?=base_URL()?>apps/l_buku">Buku</a></li>
-					<li><a href="<?=base_URL()?>apps/l_anggota">Anggota</a></li>
-					<li><a href="<?=base_URL()?>apps/stat">Statistik Terbanyak</a></li>
-				</ul>
-			</li>
-			<li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Referensi &nbsp;&nbsp;<b class="caret"></b></a>		
-				<ul class="dropdown-menu">
-					<li><a href="<?=base_URL()?>apps/r_jenis">Jenis Pustaka</a></li>
-					<li><a href="<?=base_URL()?>apps/r_kelas">Kelas Pustaka</a></li>
-					<li><a href="<?=base_URL()?>apps/r_lokasi">Lokasi Pustaka</a></li>
-				</ul>
-			</li>
-			<li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">Konfigurasi &nbsp;&nbsp;<b class="caret"></b></a>		
-				<ul class="dropdown-menu">
-					<li><a href="<?=base_URL()?>apps/nama_perpus">Nama Perpustakaan</a></li>
-					<li><a href="<?=base_URL()?>apps/c_pinjam">Peminjaman</a></li>
-					<li><a href="<?=base_URL()?>apps/libur">Hari Libur</a></li>
-				</ul>
-			</li>
+			?>			
+    </ul>
 			
-            </ul>
-			
-			<div class="btn-group navbar-form pull-right" style="margin-right: 20px">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-				<b>admin</b>
-				<span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-					<!--<li><a href="<?=base_URL()?>apps/passwod">Account Info</a></li>-->
-					<li><a href="<?=base_URL()?>apps/logout">Logout</a></li>
-				</ul>
-			</div>
+    <div class="btn-group navbar-form pull-right" style="margin-right: 20px">
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      <b>admin</b>
+      <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <!--<li><a href="<?=base_URL()?>apps/passwod">Account Info</a></li>-->
+        <li><a href="<?=base_URL()?>apps/logout">Logout</a></li>
+      </ul>
+    </div>
 
-          </div><!--/.nav-collapse -->
-        </div>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
+  </div>
 
     <div class="container-fluid" style="margin-top: 90px">
       <div class="row-fluid">
