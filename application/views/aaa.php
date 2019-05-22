@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
    
-	<title>Selamat datang di Perpustakaan : <?=$q_instansi->nama?></title>
+	<title>Selamat datang di Perpustakaan : </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -44,8 +44,8 @@
 	<div class="container well" style="width: 960px">
 	
 	<img src="<?=base_URL()?>aset/<?=$q_instansi->logo?>" style="width: 70px; height: 70px; display: inline; margin: -5px 0 50px 0">
-	<h3 style="margin: -120px 0 20px 90px; font-family: Georgia; font-size: 25px">Perpustakaan <?=$q_instansi->nama?></h3> <br>
-	<small style="font-family: Times New Roman; font-size: 17px; margin: -40px 0 0 90px; display: inline; position: absolute">Alamat : <?=$q_instansi->alamat?></small>
+	<h3 style="margin: -120px 0 20px 90px; font-family: Georgia; font-size: 25px">PERPUSTAKAAN POLITEKNIK</h3> <br>
+	<small style="font-family: Times New Roman; font-size: 17px; margin: -40px 0 0 90px; display: inline; position: absolute">Alamat : JEMBER</small>
 	
 	
 	<div class="navbar">
@@ -106,7 +106,7 @@
 		<hr>	
 
      <footer>
-		<div><center>&reg; SIMPUS. Copyright: <?=$q_instansi->nama?> - 2019.</div>
+		<div><center>&reg; SIMPUS. Copyright: - 2019.</div>
 	</footer>
 
 

@@ -4,7 +4,7 @@
 		</ul>
 		
 		<div class="span12 wellwhite" style="margin-left: 0px">
-		<legend style="margin-bottom: 10px; font-size: 15px; font-weight: bold">Selamat Datang di Perpustakaan <?=$q_instansi->nama?></legend>
+		<legend style="margin-bottom: 10px; font-size: 15px; font-weight: bold">Selamat Datang di Perpustakaan </legend>
 		<div class="row-fluid">
 		
 		<form action="<?=base_URL()?>depan/post_pengunjung" method="post" accept-charset="utf-8" enctype="multipart/form-data">
