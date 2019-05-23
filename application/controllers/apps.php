@@ -48,6 +48,118 @@ class Apps extends CI_Controller {
   redirect('apps/login');
   }
 
+  public function trans() {
+    if(! $this->session->userdata('validated')){
+        redirect('apps/login');
+    }
+    
+    
+    //ambil variabel URL
+    $mau_ke					= $this->uri->segment(3);
+    $idu					= $this->uri->segment(4);
+    $idu2					= $this->uri->segment(5);
+
+    //ambil variabel Postingan
+    $id_anggota				= addslashes($this->input->post('id_anggota'));
+    $tgl_pinjam				= addslashes($this->input->post('tgl_pinjam'));
+    $tgl_kembali			= addslashes($this->input->post('tgl_kembali'));
+    $ket					= addslashes($this->input->post('ket'));
+    $jml_buku				= addslashes($this->input->post('jml_buku'));
+    
+    $cari					= addslashes($this->input->post('q'));
+    //view tampilan website\
+    $a['data']		= $this->db->query("SELECT *, COUNT(id_anggota) AS jml_pinjam FROM t_trans WHERE stat = 'P' GROUP BY id_anggota DESC")->result();
+    $a['page']		= "d_trans";
+
+    if ($mau_ke == "pilih_anggota") {
+        $a['page']		= "d_pilih_anggota";
+    } else if ($mau_ke == "det") {
+        $q_instansi	= $this->db->query("SELECT * FROM r_config LIMIT 1")->row();
+        $a['denda']		= $q_instansi->denda;
+        $a['nama_anggota']	= getNama($idu);
+        $a['data']		= $this->db->query("SELECT *, DATEDIFF(NOW(), tgl_kembali) AS terlambat FROM t_trans WHERE id_anggota = '$idu' AND stat = 'P'")->result();
+        $a['page']		= "d_detil_pinjam";
+    } else if ($mau_ke == "cari") {
+        $a['data']		= $this->db->query("SELECT *, COUNT(id_anggota) AS jml_pinjam FROM t_trans WHERE id_anggota = '$cari' AND stat = 'P' GROUP BY id_anggota DESC")->result();
+        $a['page']		= "d_trans";
+    } else if ($mau_ke == "add") {
+        $id_anggota		= $this->input->post('id_anggota');
+        $jumlah_buku	= $this->input->post('jml_buku');
+        
+        $cek_peminjam	= $this->db->query("SELECT *, COUNT(id_anggota) AS jml FROM t_trans WHERE stat = 'P' AND id_anggota = '$id_anggota' GROUP BY id_anggota")->num_rows();
+        
+        if ($cek_peminjam > 0) {
+            $this->session->set_flashdata("k", "<div class=\"alert alert-error\">Peminjam tersebut masih mempunyai peminjaman yang belum dikembalikan. </div>");
+            redirect('apps/trans/pilih_anggota');
+        } else {
+            $a['det_anggota']	= $this->db->query("SELECT * FROM t_anggota WHERE id = '$id_anggota'")->row();
+            $a['data']		= $this->db->query("SELECT * FROM t_trans WHERE id_anggota = '$id_anggota' AND stat = 'P' ORDER BY id DESC")->result();
+            $a['jml_buku']	= $jumlah_buku;
+            $a['page']		= "f_trans";
+        }
+    } else if ($mau_ke == "kembali") {
+        $id_anggota		= $this->uri->segment(4);
+        $id_buku		= $this->uri->segment(5);
+        $id_trans		= $this->uri->segment(6);
+        $telat			= $this->uri->segment(7);
+        $denda			= $this->uri->segment(8);
+        
+        $a['data']		= $this->db->query("UPDATE t_trans SET stat = 'K', telat = '$telat', denda = '$denda'  WHERE id = '$id_trans'");
+        $a['data']		= $this->db->query("UPDATE t_buku SET stat_pinjam = 'R' WHERE id = '$id_buku'");
+        $this->session->set_flashdata("k", "<div class=\"alert alert-success\">Data has been changed </div>");
+        redirect('apps/trans/det/'.$id_anggota);
+    } else if ($mau_ke == "perpanjang") {
+        $a['data']		= $this->db->query("UPDATE t_trans SET tgl_kembali = '".adddate(7)."' WHERE id = '$idu'");
+        $this->session->set_flashdata("k", "<div class=\"alert alert-success\">Data has been changed </div>");
+        redirect('apps/trans/det/'.$idu2);
+    } else if ($mau_ke == "act_add") {
+        //$sama  = "";
+        for ($i = 1; $i <= $jml_buku; $i++) {
+            $this->db->query("INSERT INTO t_trans VALUES ('', '".$this->input->post('id_buku_'.$i)."', '$id_anggota', '$tgl_pinjam', '$tgl_kembali', 'P', '$ket', '0', '0')");
+            $this->db->query("UPDATE t_buku SET stat_pinjam = 'P' WHERE id = '".$this->input->post('id_buku_'.$i)."'");
+        }
+        $this->session->set_flashdata("k", "<div class=\"alert alert-success\">Data has been added</div>");
+        redirect('apps/trans');
+    } else if ($mau_ke == "caribuku") {
+        $id_data			=  empty($_POST['id_data']) ? $_GET['id_data'] : $_POST['id_data'];
+        $kata_kunci			=  empty($_POST['kata_kunci']) ? $_GET['kata_kunci'] : $_POST['kata_kunci'];
+    
+        $q_data				=  $this->db->query("SELECT id, judul FROM t_buku WHERE judul LIKE '%$kata_kunci%' ORDER BY id ASC");
+        $data				=  $q_data->result();
+        $jumlah_hasil		=  $q_data->num_rows();
+        
+        if (strlen($kata_kunci) < 4) {
+            echo '<div class="alert alert-error">Kata kunci minimal 3 huruf</a>';
+        } else if (!empty($data)) {
+            echo ' 	<div class="alert alert-info">Ditemukan <b>'.$jumlah_hasil.'</b> data</div>';
+            echo '	<table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="20%">ID</th>
+                                <th width="70%">Judul</th>
+                                <th width="10%">Pilih</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+            foreach ($data as $d) {
+                echo '	<tr>
+                            <td>'.$d->id.'</td>
+                            <td>'.$d->judul.'</td>
+                            <td><a href="#" class="btn btn-success btn-sm" onclick="return isikan_kode('.$id_data.', '.$d->id.', \''.addslashes($d->judul).'\');">OK</a></td>
+                        </tr>';
+            }
+            echo '	</tbody></table>';
+        } else {
+            echo '<div class="alert alert-error">Tidak ditemukan</a>';
+        }
+        exit;
+    } else {
+        $a['page']	= "d_trans";
+    }
+    
+    $this->load->view('admin/aaa', $a);
+}
+
   public function anggota() {
         if(! $this->session->userdata('validated')){
             redirect('apps/login');
