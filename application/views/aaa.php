@@ -31,38 +31,27 @@
     </style>
     <link href="<?=base_URL()?>aset/css/bootstrap-responsive.css" rel="stylesheet">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="<?=base_URL()?>/favicon.ico">
   </head>
   
-  <body style="background: #7BA9DE">  
-	<div class="container well" style="width: 960px">
+  <body>  
+	<div class="container" style="width: 960px">
 	
-	<img src="<?=base_URL()?>aset/<?=$q_instansi->logo?>" style="width: 70px; height: 70px; display: inline; margin: -5px 0 50px 0">
+
+	
+	<img src="<?=base_URL()?>aset/LOGO_POLITEKNIK.png" style="width: 70px; height: 70px; display: inline; margin: -5px 0 50px 0">
 	<h3 style="margin: -120px 0 20px 90px; font-family: Georgia; font-size: 25px">PERPUSTAKAAN POLITEKNIK</h3> <br>
 	<small style="font-family: Times New Roman; font-size: 17px; margin: -40px 0 0 90px; display: inline; position: absolute">Alamat : JEMBER</small>
 	
-	
 	<div class="navbar">
-	  <div class="navbar-inner">
+	  <div class="navbar-inner" style="background:#0044cc;border-radius:1px">
 		<ul class="nav">
-			<li><a href="<?=base_URL()?>depan" class="depan">Beranda</a></li>
-			<li><a href="<?=base_URL()?>depan/profil" class="depan">Profil Perpustakaan</a></li>
-			<li><a href="<?=base_URL()?>depan/cari_buku" class="depan">Cari Buku</a></li>				 
-			<!--<li><a href="<?=base_URL()?>depan/buku_terbaru" class="depan">Buku Terbaru</a></li>	-->			 
+			<li><a href="<?=base_URL()?>depan" class="depan" style="border-right:none;border-left:none">Beranda</a></li>
+			<li><a href="<?=base_URL()?>depan/profil" class="depan" style="border-right:none;border-left:none">Profil Perpustakaan</a></li>
+			<li><a href="<?=base_URL()?>depan/cari_buku" class="depan" style="border-right:none;border-left:none">Cari Buku</a></li>				 
 		</ul>
-		<!--<form class="navbar-form pull-right" method="post" action="<?=base_URL()?>index.php/tampil/cari">
-		  <input type="text" class="span2" name="q" value="">
-		  <button type="submit" class="btn">Cari Buku</button>
-		</form>-->
-	  </div>
-	  
-	  
+	</div>
+	    
 	</div>
 	
 	<?php 
